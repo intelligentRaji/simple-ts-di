@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      reflect-metadata:
+        specifier: ^0.2.2
+        version: 0.2.2
     devDependencies:
       typescript:
         specifier: ~5.7.2
@@ -292,6 +296,9 @@ packages:
     resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
     engines: {node: ^10 || ^12 || >=14}
 
+  reflect-metadata@0.2.2:
+    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
+
   rollup@4.37.0:
     resolution: {integrity: sha512-iAtQy/L4QFU+rTJ1YUjXqJOJzuwEghqWzCEYD2FEghT7Gsy1VdABntrO4CLopA5IkflTyqNiLNwPcOJ3S7UKLg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -525,6 +532,8 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  reflect-metadata@0.2.2: {}
 
   rollup@4.37.0:
     dependencies:
