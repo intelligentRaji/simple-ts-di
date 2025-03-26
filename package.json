@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "scss": "^0.2.4"
   },
   "devDependencies": {
     "typescript": "~5.7.2",
