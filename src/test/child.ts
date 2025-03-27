@@ -1,4 +1,4 @@
-import { Component } from '../decorators/component'
+import { Component } from '../di/decorators/component'
 import { Dependency } from './dependency'
 import { GrandChild } from './grand-child'
 

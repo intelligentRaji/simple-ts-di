@@ -1,5 +1,5 @@
-import { Component } from '../decorators/component'
-import { inject } from '../utils/inject'
+import { Component } from '../di/decorators/component'
+import { inject } from '../di/utils/inject'
 import { Dependency } from './dependency'
 import { SuperDependency } from './super-dependency'
 

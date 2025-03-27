@@ -1,14 +1,12 @@
-import { BaseComponent } from '../base-component/base-component'
-import { Component } from '../decorators/component'
-import { Asd } from './asd'
+import { Component } from '../di/decorators/component'
+import { SecondChild } from './second-child'
 import { Child } from './child'
 import { SuperDependency } from './super-dependency'
 
 @Component([SuperDependency])
-export class Root extends BaseComponent<'div'> {
+export class Root {
   constructor() {
-    super({})
     new Child()
-    new Asd()
+    new SecondChild()
   }
 }
