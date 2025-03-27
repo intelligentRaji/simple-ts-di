@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "prettier": "^3.5.3",
     "reflect-metadata": "^0.2.2",
     "scss": "^0.2.4"
   },
