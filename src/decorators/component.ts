@@ -1,8 +1,8 @@
 import { Injector } from '../injector/injector'
-import { Constructor } from '../types/component'
+import { Constructor } from '../types/constructor'
 import { getCurrentInjector, INJECTOR_STACK } from '../utils/inject'
 
-export function Component(...providers: Constructor[]) {
+export function Component(providers: Constructor[] = []) {
   return function <T extends Constructor>(target: T) {
     return class extends target {
       constructor(...args: any[]) {

@@ -1,16 +1,14 @@
 import { BaseComponent } from '../base-component/base-component'
 import { Component } from '../decorators/component'
-import { inject } from '../utils/inject'
+import { Asd } from './asd'
 import { Child } from './child'
-import { Dependency } from './dependency'
+import { SuperDependency } from './super-dependency'
 
-@Component()
+@Component([SuperDependency])
 export class Root extends BaseComponent<'div'> {
-  private readonly dep = inject(Dependency)
-
   constructor() {
     super({})
-    console.log(`root component dependency is ${this.dep}`)
-    this.append(new Child())
+    new Child()
+    new Asd()
   }
 }

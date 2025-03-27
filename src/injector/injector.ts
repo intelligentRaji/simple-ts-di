@@ -1,4 +1,4 @@
-import { Constructor } from '../types/component'
+import { Constructor } from '../types/constructor'
 
 const NOT_INITIALIZED = 'NOT_INITIALIZED'
 

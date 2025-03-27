@@ -1,5 +1,5 @@
 import { Injector } from '../injector/injector'
-import { Constructor } from '../types/component'
+import { Constructor } from '../types/constructor'
 
 export const INJECTOR_STACK: Injector[] = []
 

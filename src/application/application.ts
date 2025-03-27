@@ -1,6 +1,6 @@
 import { BaseComponent, Tags } from '../base-component/base-component'
 import { RootInjector } from '../injector/root-injector'
-import { Constructor } from '../types/component'
+import { Constructor } from '../types/constructor'
 import { INJECTOR_STACK } from '../utils/inject'
 
 export class Application {

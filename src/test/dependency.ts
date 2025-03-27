@@ -1,5 +1,7 @@
 export class Dependency {
-  constructor() {
-    console.log('I am a dependency')
+  public counter = 0
+
+  public count() {
+    console.log(`dep ${this.counter++}`)
   }
 }
