@@ -1,4 +1,8 @@
 import { Application } from './di/application/application'
-import { Root } from './test/root'
+import { AppComponent } from './test/components/app/app'
+import { StateService } from './test/services/state.service'
 
-Application.init(Root, [])
+const root = document.getElementById('app')
+
+const app = Application.init(AppComponent, [StateService])
+root?.append(app.node)

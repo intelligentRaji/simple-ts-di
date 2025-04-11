@@ -9,6 +9,7 @@ export class Injector {
   constructor(parent: Injector | null = null, providers: Constructor[] = []) {
     this.parent = parent
     providers.forEach((provider) => this.provide(provider))
+    this.providers.set(Injector.name, this)
   }
 
   public get<T extends Constructor>(target: T): InstanceType<T> {
