@@ -1,7 +1,5 @@
-import { Injector } from '../injector/injector'
 import { Constructor } from '../types/constructor'
-
-export const INJECTOR_STACK: Injector[] = []
+import { getCurrentInjector } from './context'
 
 export function inject<T extends Constructor>(target: T): InstanceType<T> {
   const injector = getCurrentInjector()
@@ -11,8 +9,4 @@ export function inject<T extends Constructor>(target: T): InstanceType<T> {
   }
 
   return injector.get(target)
-}
-
-export function getCurrentInjector(): Injector | null {
-  return INJECTOR_STACK[INJECTOR_STACK.length - 1]
 }
