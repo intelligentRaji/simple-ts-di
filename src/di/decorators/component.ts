@@ -10,6 +10,7 @@ export function Component(providers: Constructor[] = []) {
         const injector = new Injector(parent, providers)
         setCurrentInjector(injector)
         super(...args)
+        injector.provide(target, this as InstanceType<T>)
         setCurrentInjector(parent)
       }
     }

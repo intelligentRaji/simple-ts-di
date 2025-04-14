@@ -31,7 +31,7 @@ export class Injector {
   }
 
   /** @internal */
-  public provide<T extends Constructor>(target: T): void {
-    this.providers.set(target.name, NOT_INITIALIZED)
+  public provide<T extends Constructor>(target: T, value?: InstanceType<T>): void {
+    this.providers.set(target.name, value ?? NOT_INITIALIZED)
   }
 }

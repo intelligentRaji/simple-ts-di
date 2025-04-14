@@ -34,6 +34,7 @@ export class AppComponent extends BaseComponent<'div'> {
 
     add.addListener('click', () => {
       this.state.addItem(input.node.value)
+      input.node.value = ''
     })
 
     const increment = new BaseComponent({
@@ -41,19 +42,28 @@ export class AppComponent extends BaseComponent<'div'> {
       text: 'Increment',
     })
 
+    const globalCounter = new BaseComponent({
+      tag: 'span',
+      text: `${this.counter.counter.value}`,
+      className: 'global-counter',
+    })
+
     increment.addListener('click', () => {
       this.counter.increment()
     })
 
-    this.append(input, add, increment, this.itemsContainer)
+    this.append(input, add, increment, this.itemsContainer, globalCounter)
 
+    this.counter.counter.subscribe((count) => {
+      globalCounter.setTextContent(`${count}`)
+    })
     this.state.items.subscribe(this.createItems.bind(this))
   }
 
   private createItems(items: string[]): void {
     this.itemsContainer.destroyChildren()
-    items.forEach((item) => {
-      this.itemsContainer.append(dynamicComponent(Item, [item], this.injector))
+    items.forEach((name) => {
+      this.itemsContainer.append(dynamicComponent(Item, [name], this.injector))
     })
   }
 }

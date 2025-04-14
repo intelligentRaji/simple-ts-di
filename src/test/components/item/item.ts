@@ -1,18 +1,34 @@
+import './item.scss'
+import { Component } from '../../../di/decorators/component'
 import { inject } from '../../../di/utils/inject'
 import { CounterService } from '../../services/counter.service'
 import { BaseComponent } from '../base/base-component'
 
+@Component([CounterService])
 export class Item extends BaseComponent<'div'> {
-  private readonly counter = inject(CounterService).counter
+  private readonly counter = inject(CounterService)
 
   constructor(private readonly name: string) {
     super({ tag: 'div', className: 'item' })
-    this.updateCounter(this.counter.value)
 
-    this.counter.subscribe(this.updateCounter.bind(this))
-  }
+    const text = new BaseComponent({
+      tag: 'span',
+      text: `${this.name} ${this.counter.counter.value}`,
+    })
 
-  private updateCounter(count: number): void {
-    this.setTextContent(`${this.name} ${count}`)
+    const button = new BaseComponent({
+      tag: 'button',
+      text: 'Count',
+    })
+
+    button.addListener('click', () => {
+      this.counter.increment()
+    })
+
+    this.append(text, button)
+
+    this.counter.counter.subscribe((count) => {
+      text.setTextContent(`${this.name} ${count}`)
+    })
   }
 }
