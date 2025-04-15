@@ -74,7 +74,7 @@ export class Injector {
 
 function createClassProviderFromConstructor<T>(target: Constructor<T>): ClassProvider<T> {
   return {
-    provide: new InjectionToken(target.name),
+    provide: target,
     useClass: target,
   }
 }
