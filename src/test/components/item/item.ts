@@ -6,11 +6,12 @@ import { BaseComponent } from '../base/base-component'
 import { InjectionToken } from '../../../di/injection-token'
 import { ROOT_TOKEN } from '../../tokens/root-token'
 
-const TEST = new InjectionToken('TEST')
+const TEST = new InjectionToken<string>('TEST')
 
-@Component([CounterService, { provide: TEST, useExisting: CounterService }])
+@Component([{ provide: TEST, useValue: 'test' }])
 export class Item extends BaseComponent<'div'> {
-  private readonly counter = inject<CounterService>(TEST)
+  private readonly counter = inject(CounterService)
+  private readonly test = inject(TEST)
   private readonly rootToken = inject(ROOT_TOKEN)
 
   constructor(private readonly name: string) {
@@ -19,7 +20,7 @@ export class Item extends BaseComponent<'div'> {
 
     const text = new BaseComponent({
       tag: 'span',
-      text: `${this.counter.counter.value}`,
+      text: `${this.test} ${this.counter.counter.value}`,
     })
 
     const button = new BaseComponent({
@@ -34,7 +35,7 @@ export class Item extends BaseComponent<'div'> {
     this.append(text, button)
 
     this.counter.counter.subscribe((count) => {
-      text.setTextContent(`${this.name} ${count}`)
+      text.setTextContent(`${this.test} ${this.name} ${count}`)
     })
   }
 }
