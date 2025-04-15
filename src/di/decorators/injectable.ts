@@ -1,5 +1,5 @@
 import { Constructor } from '../types/constructor'
-import { ROOT_INJECTOR } from '../utils/context'
+import { ROOT_INJECTOR } from '../context'
 
 export type InjectableLocation = 'root'
 
@@ -12,7 +12,5 @@ export function Injectable(props: InjectableProps = {}) {
     if (props.providedIn === 'root') {
       ROOT_INJECTOR.provide(target)
     }
-
-    return target
   }
 }

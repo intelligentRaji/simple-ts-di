@@ -1,5 +1,5 @@
 import { Constructor } from '../types/constructor'
-import { ROOT_INJECTOR } from '../utils/context'
+import { ROOT_INJECTOR } from '../context'
 
 export class Application {
   static init<T extends Constructor>(root: T, providers: Constructor[] = []): InstanceType<T> {

@@ -3,9 +3,9 @@ import { Component } from '../../../di/decorators/component'
 import { BaseComponent } from '../base/base-component'
 import { CounterService } from '../../services/counter.service'
 import { StateService } from '../../services/state.service'
-import { inject } from '../../../di/utils/inject'
+import { inject } from '../../../di/inject'
 import { Item } from '../item/item'
-import { dynamicComponent } from '../../../di/utils/dynamic-component'
+import { dynamicComponent } from '../../../di/dynamic-component'
 import { Injector } from '../../../di/injector/injector'
 
 @Component([CounterService])

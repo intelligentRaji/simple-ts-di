@@ -1,5 +1,5 @@
-import { Injector } from '../injector/injector'
-import { Constructor } from '../types/constructor'
+import { Injector } from './injector/injector'
+import { Constructor } from './types/constructor'
 import { assertRunInInjectionContext, setCurrentInjector } from './context'
 import { inject } from './inject'
 

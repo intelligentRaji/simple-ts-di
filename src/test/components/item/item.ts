@@ -1,19 +1,23 @@
 import './item.scss'
 import { Component } from '../../../di/decorators/component'
-import { inject } from '../../../di/utils/inject'
+import { inject } from '../../../di/inject'
 import { CounterService } from '../../services/counter.service'
 import { BaseComponent } from '../base/base-component'
+import { InjectionToken } from '../../../di/injection-token'
 
-@Component([CounterService])
+const TEST = new InjectionToken<string>('TEST')
+
+@Component([{ provide: TEST, useValue: 'test' }])
 export class Item extends BaseComponent<'div'> {
   private readonly counter = inject(CounterService)
+  private readonly test = inject(TEST)
 
   constructor(private readonly name: string) {
     super({ tag: 'div', className: 'item' })
 
     const text = new BaseComponent({
       tag: 'span',
-      text: `${this.name} ${this.counter.counter.value}`,
+      text: `${this.test} ${this.counter.counter.value}`,
     })
 
     const button = new BaseComponent({

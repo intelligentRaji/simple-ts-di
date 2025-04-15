@@ -1,4 +1,4 @@
-import { Injector } from '../injector/injector'
+import { Injector } from './injector/injector'
 
 export const ROOT_INJECTOR = new Injector()
 
