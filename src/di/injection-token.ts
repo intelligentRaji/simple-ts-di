@@ -1,7 +1,7 @@
 import { ROOT_INJECTOR } from './context'
 import { InjectableFactoryProps } from './decorators/injectable'
 
-export class InjectionToken<T = unknown> {
+export class InjectionToken<T = any> {
   constructor(
     public readonly name: string,
     public readonly options?: InjectableFactoryProps<T>,
