@@ -24,9 +24,9 @@ export class Injector {
   }
 
   public get<T>(token: InjectionToken<T> | Constructor<T>): T {
-    const dependency = this.providers.get(token.name)
+    const provider = this.providers.get(token.name)
 
-    if (!dependency) {
+    if (!provider) {
       if (this.parent) {
         return this.parent.get(token)
       }
@@ -34,21 +34,21 @@ export class Injector {
       throw new Error(`Dependency ${token.name} is not registered`)
     }
 
-    if (isProviderInitialized(dependency)) {
-      return dependency.value
+    if (isProviderInitialized(provider)) {
+      return provider.value
     }
 
-    const value = this.initializeProvider(dependency)
-    this.providers.set(token.name, { value })
-    return value
+    const dependency = this.initializeProvider(provider)
+    this.providers.set(token.name, { value: dependency })
+    return dependency
   }
 
-  public provide<T>(providerOrConstructor: Provider<T>): void {
-    if (isProviderConstructor(providerOrConstructor)) {
-      providerOrConstructor = createClassProviderFromConstructor(providerOrConstructor)
+  public provide<T>(provider: Provider<T>): void {
+    if (isProviderConstructor(provider)) {
+      provider = createClassProviderFromConstructor(provider)
     }
 
-    this.providers.set(providerOrConstructor.provide.name, { provider: providerOrConstructor })
+    this.providers.set(provider.provide.name, { provider: provider })
   }
 
   private initializeProvider(providerData: UninitializedProvider): any {
