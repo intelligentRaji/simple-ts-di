@@ -1,7 +1,7 @@
 import { InjectionToken } from '../injection-token'
 import { Constructor } from './constructor'
 
-export type Provider<T> =
+export type Provider<T = any> =
   | ConstructorProvider<T>
   | ValueProvider<T>
   | ClassProvider<T>

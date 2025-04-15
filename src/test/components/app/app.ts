@@ -7,11 +7,13 @@ import { inject } from '../../../di/inject'
 import { Item } from '../item/item'
 import { dynamicComponent } from '../../../di/dynamic-component'
 import { Injector } from '../../../di/injector/injector'
+import { ServiceCreatedWithFactory } from '../../services/service-created-with-factory'
 
 @Component([CounterService])
 export class AppComponent extends BaseComponent<'div'> {
   private readonly state = inject(StateService)
   private readonly counter = inject(CounterService)
+  private readonly factoryDependecy = inject(ServiceCreatedWithFactory)
   private readonly injector = inject(Injector)
 
   private readonly itemsContainer = new BaseComponent({
@@ -21,6 +23,7 @@ export class AppComponent extends BaseComponent<'div'> {
 
   constructor() {
     super({ tag: 'div', className: 'root' })
+    this.factoryDependecy.logDependecy()
 
     const input = new BaseComponent({
       tag: 'input',
