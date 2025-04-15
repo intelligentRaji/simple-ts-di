@@ -10,23 +10,26 @@ export type Provider<T = any> =
 
 export type ConstructorProvider<T> = Constructor<T>
 
-export type ValueProvider<T> = {
+export interface ValueProvider<T> {
   provide: InjectionToken<T> | Constructor<T>
   useValue: T
 }
 
-export type ClassProvider<T> = {
+export interface ClassProvider<T> {
   provide: InjectionToken<T> | Constructor<T>
   useClass: Constructor<T>
 }
 
-export type ExistingProvider<T> = {
+export interface ExistingProvider<T> {
   provide: InjectionToken<T> | Constructor<T>
   useExisting: InjectionToken<T> | Constructor<T>
 }
 
-export type FactoryProvider<T> = {
+export interface FactoryProvider<T> extends FactoryOptions<T> {
   provide: InjectionToken<T> | Constructor<T>
+}
+
+export interface FactoryOptions<T = any> {
   useFactory: () => T
-  deps?: Provider<unknown>[]
+  deps?: Provider[]
 }

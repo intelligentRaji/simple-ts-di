@@ -4,6 +4,7 @@ import { inject } from '../../../di/inject'
 import { CounterService } from '../../services/counter.service'
 import { BaseComponent } from '../base/base-component'
 import { InjectionToken } from '../../../di/injection-token'
+import { ROOT_TOKEN } from '../../tokens/root-token'
 
 const TEST = new InjectionToken<string>('TEST')
 
@@ -11,9 +12,11 @@ const TEST = new InjectionToken<string>('TEST')
 export class Item extends BaseComponent<'div'> {
   private readonly counter = inject(CounterService)
   private readonly test = inject(TEST)
+  private readonly rootToken = inject(ROOT_TOKEN)
 
   constructor(private readonly name: string) {
     super({ tag: 'div', className: 'item' })
+    console.log(this.rootToken)
 
     const text = new BaseComponent({
       tag: 'span',

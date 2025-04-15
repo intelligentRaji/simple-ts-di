@@ -1,18 +1,25 @@
 import { Constructor } from '../types/constructor'
 import { ROOT_INJECTOR } from '../context'
-import { Provider } from '../types/provider'
+import { FactoryOptions, Provider } from '../types/provider'
 
 export type InjectableLocation = 'root'
-export interface InjectableProps {
-  providedIn?: InjectableLocation
-  useFactory?: () => any
-  deps?: Provider[]
+
+export interface InjectableFactoryProps<T> extends FactoryOptions<T> {
+  providedIn: InjectableLocation
 }
 
-export function Injectable({ providedIn, useFactory, deps }: InjectableProps = {}) {
+export interface InjectableClassProps {
+  providedIn?: InjectableLocation
+}
+
+export type InjectableProps<T = any> = InjectableFactoryProps<T> | InjectableClassProps
+
+export function Injectable(props: InjectableProps = {}) {
   return function (target: Constructor) {
-    if (providedIn === 'root') {
-      const provider: Provider = useFactory ? { provide: target, useFactory, deps } : target
+    if (props.providedIn === 'root') {
+      const provider: Provider = isFactoryProps(props)
+        ? { provide: target, useFactory: props.useFactory, deps: props.deps }
+        : target
 
       ROOT_INJECTOR.provide(provider)
       return
@@ -20,4 +27,8 @@ export function Injectable({ providedIn, useFactory, deps }: InjectableProps = {
 
     return target
   }
+}
+
+function isFactoryProps<T>(props: InjectableProps<T>): props is InjectableFactoryProps<T> {
+  return 'useFactory' in props
 }

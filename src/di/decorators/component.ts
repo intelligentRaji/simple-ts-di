@@ -1,8 +1,10 @@
 import { Injector } from '../injector/injector'
 import { Constructor } from '../types/constructor'
 import { getCurrentInjector, setCurrentInjector } from '../context'
-import { COMPONENT } from '../tokens'
 import { Provider } from '../types/provider'
+import { InjectionToken } from '../injection-token'
+
+export const COMPONENT = new InjectionToken('Component')
 
 export function Component(providers: Provider<any>[] = []) {
   return function <T extends Constructor>(target: T) {
