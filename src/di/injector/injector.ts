@@ -4,7 +4,7 @@ import { Constructor } from '../types/constructor'
 import { ClassProvider, FactoryProvider, Provider, ValueProvider } from '../types/provider'
 
 type UninitializedProvider = {
-  provider: Provider<any>
+  provider: Provider
 }
 
 type InitializedProvider = {
@@ -12,6 +12,24 @@ type InitializedProvider = {
 }
 
 type ProviderData = UninitializedProvider | InitializedProvider
+
+interface InjectionSkipSelfOptions {
+  self?: false
+  skipSelf?: true
+  host?: boolean
+  optional?: boolean
+}
+
+interface InjectionSelfOptions {
+  self?: true
+  skipSelf?: false
+  host?: boolean
+  optional?: boolean
+}
+
+export type InjectionOptions = InjectionSelfOptions | InjectionSkipSelfOptions
+
+export type InjectionOptionalOptions = InjectionOptions & { optional: true }
 
 export class Injector {
   private readonly providers = new Map<string, ProviderData>()
@@ -23,12 +41,28 @@ export class Injector {
     this.provide({ provide: Injector, useValue: this })
   }
 
-  public get<T>(token: InjectionToken<T> | Constructor<T>): T {
-    const provider = this.providers.get(token.name)
+  public get<T>(
+    token: InjectionToken<T> | Constructor<T>,
+    options: InjectionOptionalOptions,
+  ): T | undefined
+  public get<T>(token: InjectionToken<T> | Constructor<T>, options?: InjectionOptions): T
+  public get<T>(
+    token: InjectionToken<T> | Constructor<T>,
+    options: InjectionOptions | InjectionOptionalOptions = {},
+  ): T | undefined {
+    let provider
+
+    if (!options.skipSelf) {
+      provider = this.providers.get(token.name)
+    }
 
     if (!provider) {
-      if (this.parent) {
-        return this.parent.get(token)
+      if (this.parent && !options.self) {
+        return this.parent.get(token, { optional: options.optional, self: options.host })
+      }
+
+      if (options.optional) {
+        return
       }
 
       throw new Error(`Dependency ${token.name} is not registered`)
@@ -48,7 +82,7 @@ export class Injector {
       provider = createClassProviderFromConstructor(provider)
     }
 
-    this.providers.set(provider.provide.name, { provider: provider })
+    this.providers.set(provider.provide.name, { provider })
   }
 
   private initializeProvider(providerData: UninitializedProvider): any {

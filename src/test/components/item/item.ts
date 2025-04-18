@@ -5,18 +5,21 @@ import { CounterService } from '../../services/counter.service'
 import { BaseComponent } from '../base/base-component'
 import { InjectionToken } from '../../../di/injection-token'
 import { ROOT_TOKEN } from '../../tokens/root-token'
+import { NOT_PROVIDED_TOKEN } from '../../tokens/not-provided-token'
 
 const TEST = new InjectionToken<string>('TEST')
 
 @Component([{ provide: TEST, useValue: 'test' }])
 export class Item extends BaseComponent<'div'> {
-  private readonly counter = inject(CounterService)
+  private readonly counter = inject(CounterService, { host: true })
   private readonly test = inject(TEST)
   private readonly rootToken = inject(ROOT_TOKEN)
+  private readonly notProvided = inject(NOT_PROVIDED_TOKEN, { optional: true })
 
   constructor(private readonly name: string) {
     super({ tag: 'div', className: 'item' })
     console.log(this.rootToken)
+    console.log(this.notProvided)
 
     const text = new BaseComponent({
       tag: 'span',
