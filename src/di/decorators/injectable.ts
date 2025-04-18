@@ -22,7 +22,6 @@ export function Injectable(props: InjectableProps = {}) {
         : target
 
       ROOT_INJECTOR.provide(provider)
-      return
     }
 
     return target
