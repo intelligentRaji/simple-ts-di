@@ -44,12 +44,12 @@ export class Injector {
   public get<T>(
     token: InjectionToken<T> | Constructor<T>,
     options: InjectionOptionalOptions,
-  ): T | undefined
+  ): T | null
   public get<T>(token: InjectionToken<T> | Constructor<T>, options?: InjectionOptions): T
   public get<T>(
     token: InjectionToken<T> | Constructor<T>,
     options: InjectionOptions | InjectionOptionalOptions = {},
-  ): T | undefined {
+  ): T | null {
     let provider
 
     if (!options.skipSelf) {
@@ -62,7 +62,7 @@ export class Injector {
       }
 
       if (options.optional) {
-        return
+        return null
       }
 
       throw new Error(`Dependency ${token.name} is not registered`)
